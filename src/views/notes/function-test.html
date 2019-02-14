@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+3
+
+<script>
+    (function parentTest1() {
+        var Test1 = (function() {
+            console.log("this in variable",this)
+            function Test1(firstVar,secondVar) {
+                this.firstVar = firstVar;
+                this.secondVar = secondVar;
+                console.log("this in variable's function",this)
+            }
+            Test1.prototype.showSumVar = function () {
+                return this.firstVar+this.secondVar;
+            };
+            return Test1;
+        }());
+        var classTest = new Test1(111,222);
+
+        console.log("showSumVar",classTest.showSumVar())
+        /* hasOwnProperty */
+        console.log("hasOwnProperty:firstVar",classTest.hasOwnProperty("firstVar"))
+        console.log("hasOwnProperty:showSumVar",classTest.hasOwnProperty("showSumVar"))
+        console.log("hasOwnProperty:toString",classTest.hasOwnProperty("toString"))
+        /* in */
+        console.log("in:firstVar","firstVar" in classTest)
+        console.log("in:showSumVar","showSumVar" in classTest)
+        console.log("in:toString","toString" in classTest)
+        /* getPrototypeOf */
+        console.log("isPrototypeOf",classTest.isPrototypeOf(Test1))
+
+        /** 两种构通过 variable4 new 出来的的对象无法使用 protoType属性*/
+        function variable3(){
+            this.name = "陈阳";
+            this.age = 30;
+        }
+
+        function variable4(){
+            return {name:"陈阳",age:30}
+        }
+
+        /** 关于new属性的理解 https://www.cnblogs.com/wyaocn/p/5815775.html */
+        function User(name,age){
+            this.name = name;
+            this.age = age;
+        }
+        User.prototype.getInfo = function () {
+            return "姓名："+this.name+",年龄："+this.age;
+        }
+
+        let userChen = new User("陈阳",25);
+        console.log("userChen",userChen);
+        /**
+         var obj  ={};
+         obj.__proto__ = CO.prototype;
+         CO.call(obj);
+         return obj;
+         */
+
+        var Test1 = (function() {
+            console.log("this in variable",this); //windows
+            function Test1(firstVar,secondVar) {
+                this.firstVar = firstVar;
+                this.secondVar = secondVar;
+                console.log("this in variable's function",this) //Test1
+            }
+            Test1.prototype.showSumVar = function () {
+                return this.firstVar+this.secondVar;
+            };
+            return Test1;
+        }());
+        var classTest = new Test1(111,222);
+
+    })//()
+
+
+
+
+
+</script>
+</body>
+</html>
