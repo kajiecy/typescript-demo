@@ -10,6 +10,12 @@ import { Component, Prop, Vue ,Model,Watch,Inject} from 'vue-property-decorator'
 
 @Component
 export default class HelloWorld extends Vue {
+    mounted() {
+        console.log('mounted');
+    }
+    created() {
+        console.log('create');
+    }
     @Inject('users') users;
     @Prop({type: Number,default:0})
     @Model("input")value: number;
